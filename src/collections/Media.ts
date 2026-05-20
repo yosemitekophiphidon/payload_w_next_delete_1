@@ -11,6 +11,24 @@ export const Media: CollectionConfig = {
       type: 'text',
       required: true,
     },
+    {
+      name: 'blurDataURL',
+      type: 'text',
+      required: true,
+       admin: {
+        // readOnly: true,
+        hidden: true,
+      },
+    }
   ],
   upload: true,
+  hooks: {
+    beforeChange: [
+      ({operation,data, req}) => {
+        // if(operation === 'update' && data?.filename !== req.file?.originalname){
+          // delete data.filename;
+        // }
+      } 
+    ]
+  }
 }
