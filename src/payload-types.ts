@@ -206,7 +206,7 @@ export interface ArticleAuthor {
   id: number;
   name: string;
   avatar: number | Media;
-  role: 'staff writer' | 'contributor' | 'guest author' | 'editor';
+  role: 'Staff Writer' | 'Contributor' | 'Guest Author' | 'Editor';
   updatedAt: string;
   createdAt: string;
 }

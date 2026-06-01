@@ -1,4 +1,6 @@
 import { CollectionConfig } from "payload";
+import { ARTICLE_AUTHORS_ROLE_OPTIONS } from "./constants";
+import { A } from "node_modules/@faker-js/faker/dist/airline-eVQV6kbz";
 
 export const ArticleAuthors: CollectionConfig = {
     slug: 'article-authors',
@@ -18,13 +20,8 @@ export const ArticleAuthors: CollectionConfig = {
         {
             name: 'role',
             type: 'select',
-            options: [
-                {value:'staff writer', label: 'Staff Writer'},
-                {value:'contributor', label: 'Contributor'},
-                {value:'guest author', label: 'Guest Author'}, 
-                {value:'editor', label: 'Editor'},
-            ],
-            defaultValue: 'staff writer',
+            options: Object.values(ARTICLE_AUTHORS_ROLE_OPTIONS),
+            defaultValue: ARTICLE_AUTHORS_ROLE_OPTIONS.STAFF_WRITER,
             required: true,
         },
     ]
