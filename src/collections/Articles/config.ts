@@ -4,6 +4,7 @@ import { slugify } from 'payload/shared';
 import { convertLexicalToPlaintext } from '@payloadcms/richtext-lexical/plaintext';
 import { generateSlugHook } from './hooks/generate-slug.hook';
 import { generateContentSummaryHook } from './hooks/generate-content-summary.hook';
+import { STATUS_OPTIONS } from './constants';
 
 // fields
 // - title
@@ -91,11 +92,13 @@ export const Articles: CollectionConfig = {
         {
             name: 'status',
             type: 'select',
-            options: [
-                {value: 'draft', label: 'Draft'},
-                {value: 'published', label: 'Published'},],
+            options: Object.values(STATUS_OPTIONS),
+            // options: [
+            //     {value: 'draft', label: 'Draft'},
+            //     {value: 'published', label: 'Published'},
+            // ],
             required: true,
-            defaultValue: 'draft',
+            defaultValue: STATUS_OPTIONS.DRAFT,
         },{
             name: 'publishedAt',
             type: 'date',

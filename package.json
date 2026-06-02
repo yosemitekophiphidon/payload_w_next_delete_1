@@ -16,7 +16,8 @@
     "test": "pnpm run test:int && pnpm run test:e2e",
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" playwright test --config=playwright.config.ts",
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
-    "seed": "tsx -r dotenv/config src/scripts/seed/script.ts"
+    "seed": "tsx -r dotenv/config src/scripts/seed/script.ts",
+    "nuke": "psql -U postgres -d payload_w_next_1 -c \"DROP SCHEMA public CASCADE; CREATE SCHEMA public;\" && pnpm payload migrate:fresh && pnpm seed"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "3.84.1",

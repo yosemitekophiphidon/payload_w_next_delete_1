@@ -1,6 +1,7 @@
 import {Article} from '@/payload-types'
 import type { CollectionConfig, FieldHook } from 'payload';
 import { convertLexicalToPlaintext } from 'node_modules/@payloadcms/richtext-lexical/dist/features/converters/lexicalToPlaintext/sync';
+import { MAX_SUMMARY_LENGTH } from '../constants';
 
 export const generateContentSummaryHook: FieldHook<Article, string> = ({value,data}) => {
     const MAX_SUMMARY_LENGTH = 160; // You can adjust this as needed
