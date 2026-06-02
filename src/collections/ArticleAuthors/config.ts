@@ -4,6 +4,7 @@ import { A } from "node_modules/@faker-js/faker/dist/airline-eVQV6kbz";
 
 export const ArticleAuthors: CollectionConfig = {
     slug: 'article-authors',
+    admin: {useAsTitle: 'name'},
     fields: [
         {
             name: 'name',

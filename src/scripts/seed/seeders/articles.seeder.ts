@@ -31,9 +31,6 @@ export async function seedArticles(payload: Payload){
 
             const status = faker.helpers.arrayElement(Object.values(STATUS_OPTIONS));
 
-            console.log('content: ', content)
-            console.log('contentLexical: ', contentLexical.root.children[0].children)
-
             await payload.create({
                 collection: 'articles',
                 data: {
