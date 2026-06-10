@@ -1,6 +1,6 @@
 import { wait } from 'payload/shared';
 import { ArticleCard } from './_components/article-card';
-import { getArticles } from '@/collections/Articles/fetchers';
+import { getPublishedArticles } from '@/collections/Articles/fetchers';
 import { Media } from '@/payload-types';
 import { Author } from 'next/dist/lib/metadata/types/metadata-types';
 
@@ -15,7 +15,7 @@ export default async function BlogIndexPage(){
 
     await wait(2000)
 
-    const articles = await getArticles();
+    const articles = await getPublishedArticles();
     console.log('articles',articles)
 
     if (!articles.length){

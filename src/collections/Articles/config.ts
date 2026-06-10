@@ -4,7 +4,8 @@ import { slugify } from 'payload/shared';
 import { convertLexicalToPlaintext } from '@payloadcms/richtext-lexical/plaintext';
 import { generateSlugHook } from './hooks/generate-slug.hook';
 import { generateContentSummaryHook } from './hooks/generate-content-summary.hook';
-import { STATUS_OPTIONS } from './constants';
+import { CACHE_TAG_ARTICLES, STATUS_OPTIONS } from './constants';
+import { revalidateTag, updateTag } from 'next/cache';
 
 // fields
 // - title
@@ -113,7 +114,12 @@ export const Articles: CollectionConfig = {
             },
 
         }
-    ]
+    ],
+    hooks: {
+        afterChange: [
+            () => revalidateTag(CACHE_TAG_ARTICLES,'max')
+        ]
+    }
 }
 // function extractTextFromRichText(content: { [k: string]: unknown; root: { type: string; children: { type: any; version: number;[k: string]: unknown; }[]; direction: ("ltr" | "rtl") | null; format: "left" | "start" | "center" | "right" | "end" | "justify" | ""; indent: number; version: number; }; }) {
 //     throw new Error('Function not implemented.');
