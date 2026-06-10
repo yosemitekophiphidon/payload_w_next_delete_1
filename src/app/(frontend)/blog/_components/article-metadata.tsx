@@ -1,7 +1,8 @@
+import { Media } from "@/payload-types";
 import Image from "next/image";
 
 export function ArticleMetadata({data, intent, className,}:{data:{
-    author: {avatar: string; name: string; role: string}
+    author: {avatar: Media; name: string; role: string}
     publishedAt: Date 
     readTimeMins: number
 }
@@ -16,7 +17,7 @@ className?: string}) {
             <div className = {`flex items-center ${intent == 'card' ? 'gap-2' : 'gap-3'}`}>
                 {/*author*/}
                 <Image 
-                    src = {author.avatar}
+                    src = {author.avatar.url ?? ''}
                     alt = {`${author.name}'s avatar`}
                     width = {40}
                     height= {40}

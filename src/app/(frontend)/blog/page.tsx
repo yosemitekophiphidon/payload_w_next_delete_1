@@ -1,25 +1,53 @@
 import { wait } from 'payload/shared';
 import { ArticleCard } from './_components/article-card';
+import { getArticles } from '@/collections/Articles/fetchers';
+import { Media } from '@/payload-types';
+import { Author } from 'next/dist/lib/metadata/types/metadata-types';
+
+
+function relationIsObject<T>(relation: number | T): relation is T {
+    return typeof relation !== 'number';
+}
+
 
 export default async function BlogIndexPage(){
-    console.log('published@: ', new Date('2025-11-13T20:45:00'))
+    // console.log('published@: ', new Date('2025-11-13T20:45:00'))
 
     await wait(2000)
+
+    const articles = await getArticles();
+    console.log('articles',articles)
+
+    if (!articles.length){
+        return <p>No articles found</p>
+    }
+
+
     return(
         <div className ="grid grid-cols-3 gap-4 w-full">
-            <ArticleCard
-                href="/blog/how-to-create-a-blog-tutorial-no-one-asked-for"
-                title="How to Create a Blog Tutorial No One Asked For"
-                summary = "Lorem ipsum blah blah blah"
-                coverImage="https://via.assets.so/img.jpg?w=600&h=300&bg=6b7280&f=png"
-                publishedAt = {new Date('2025-11-13T20:45:00')}
-                readTimeMins = {42}
-                author = {{
-                    avatar: "https://via.assets.so/img.jpg&w=40&bg=6b7280&f=png",
-                    name: "John Doe",
-                    role: 'Staff Writer',
-                }}
-            />
+            {articles.map(
+                ({id, title, slug, contentSummary, coverImage, author, readTimeInMins, publishedAt}) => {
+                    if (!relationIsObject(coverImage)) return null;
+                    if (!relationIsObject(author) || !relationIsObject(author.avatar))  return null;
+
+
+                    return (
+                        <ArticleCard
+                            key = {id}
+                            href={`/blog/${slug}`}
+                            title={title}
+                            summary = {contentSummary}
+                            coverImage={coverImage}
+                            publishedAt = {new Date(publishedAt ?? new Date())}
+                            readTimeMins = {readTimeInMins ?? 0}
+                            author = {{
+                                avatar: author.avatar,
+                                name: author.name,
+                                role: author.role,
+                            }}
+                    />
+                )
+            })}
         </div>
     )
 }
